@@ -3,3 +3,4 @@ mtg.db
 __pycache__/
 .env
 .idea/
+data/mtg.db

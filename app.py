@@ -50,7 +50,7 @@ def require_login():
 
 
 def get_db():
-    conn = sqlite3.connect("mtg.db")
+    conn = sqlite3.connect("data/mtg.db")
     conn.row_factory = sqlite3.Row
     return conn
 
