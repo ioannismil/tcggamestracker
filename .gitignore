@@ -2,3 +2,4 @@ mtg.db
 .venv/
 __pycache__/
 .env
+.idea/
