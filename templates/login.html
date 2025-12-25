@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login - MTG Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* Login page specific styles */
+    body { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#0f1720; color:#e6eef8; }
+    .login-viewport { position:relative; width:100%; max-width:900px; padding:48px 24px; box-sizing:border-box; }
+    .login-bg { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+    .graph-svg { position:absolute; width:140%; height:120%; left:-20%; top:-10%; opacity:0.06; }
+    .graph-2 { transform:translateY(10%); opacity:0.05; }
+    .graph-3 { transform:translateY(20%); opacity:0.04; }
+
+    /* subtle horizontal float animation (use 3D transform for better mobile performance) */
+    @keyframes floatX { from { transform: translate3d(-5%,0,0); } to { transform: translate3d(5%,0,0); } }
+    .graph-svg {
+      -webkit-animation: floatX 18s ease-in-out infinite alternate;
+      animation: floatX 18s ease-in-out infinite alternate;
+      will-change: transform;
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
+      -webkit-animation-play-state: running;
+      animation-play-state: running;
+    }
+    .graph-2 { animation-duration: 26s; animation-delay: -4s; }
+    .graph-3 { animation-duration: 22s; animation-delay: -8s; }
+
+    /* Increase visibility slightly on small screens */
+    @media (max-width:520px) {
+      .graph-svg { opacity: 0.12 !important; }
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .graph-svg { -webkit-animation: none !important; animation: none !important; }
+      .login-card { -webkit-animation: none !important; animation: none !important; }
+    }
+
+    .login-card { position:relative; z-index:2; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.04); padding:32px; border-radius:12px; box-shadow: 0 10px 30px rgba(2,6,23,0.6); backdrop-filter: blur(6px); }
+    .brand { font-weight:700; font-size:20px; color:#fff; letter-spacing:0.4px; margin-bottom:8px; }
+    .hero-title { font-size:28px; margin:6px 0 12px; color:#dff1ff; }
+    .intro { color:#cfe8ff; opacity:0.9; margin-bottom:18px; }
+    .google-btn { display:inline-flex; align-items:center; gap:12px; padding:10px 16px; background:#fff; color:#202124; border-radius:8px; text-decoration:none; font-weight:600; box-shadow: 0 4px 10px rgba(2,6,23,0.4); }
+    .google-icon { width:18px; height:18px; display:inline-block; }
+    .muted { color:rgba(255,255,255,0.6); font-size:13px; margin-top:12px; }
+
+    /* entrance */
+    .login-card { transform: translateY(12px); opacity:0; animation: enter 420ms cubic-bezier(.2,.9,.3,1) forwards; }
+    @keyframes enter { to { transform:none; opacity:1; } }
+
+    @media (max-width:520px) {
+      .login-viewport { padding:28px 16px; }
+      .hero-title { font-size:22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-bg" aria-hidden="true">
+    <!-- layered translucent 'graph' decorative SVGs -->
+    <svg class="graph-svg graph-1" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="0,300 80,260 160,220 240,200 320,170 400,150 480,160 560,130 640,120 720,90 800,80" fill="none" stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+    </svg>
+    <svg class="graph-svg graph-2" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="0,360 100,320 200,300 300,280 400,260 500,240 600,220 700,200 800,180" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    </svg>
+    <svg class="graph-svg graph-3" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <polyline points="0,320 120,300 240,280 360,260 480,250 600,230 720,210 800,200" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="login-viewport">
+    <div class="login-card">
+      <div class="brand">MTG Tracker</div>
+      <h1 class="hero-title">Welcome!  Track TCG Games here!</h1>
+      <p class="intro">Sign in with your Google account to save games, opponents and custom trackers to your profile.</p>
+      <a class="google-btn" href="/login/google">
+        <svg class="google-icon" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#4285F4" d="M533.5 278.4c0-17.4-1.6-34.2-4.7-50.4H272v95.5h146.9c-6.3 34.7-25.5 64.2-54.4 84v69.9h87.8c51.4-47.3 81-117.4 81-199z"/>
+          <path fill="#34A853" d="M272 544.3c73.7 0 135.5-24.5 180.7-66.6l-87.8-69.9c-24.4 16.4-55.6 26-92.9 26-71.4 0-132-48.1-153.6-112.6H28.1v70.9C73.3 486 166.6 544.3 272 544.3z"/>
+          <path fill="#FBBC05" d="M118.4 323.2c-10.9-32.8-10.9-68 0-100.8V151.5H28.1c-39.2 77.8-39.2 169.9 0 247.7l90.3-76z"/>
+          <path fill="#EA4335" d="M272 107.7c39.9 0 75.8 13.7 104.1 40.6l78-78C404.1 24.7 340.7 0 272 0 166.6 0 73.3 58.3 28.1 151.5l90.3 70.9C140 156 200.6 107.7 272 107.7z"/>
+        </svg>
+        Login with Google
+      </a>
+      <div class="muted">Or create an account using Google — no separate password required.</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage Trackers</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="app-header" role="banner">
+      <div class="logo" aria-hidden="true">MTG Tracker — Manage Trackers</div>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a class="nav-item" href="/">Table</a>
+  <a class="nav-item" href="/stats">Stats</a>
+  <button class="nav-item active" href="/manage-trackers">Manage Trackers</button>
+</nav>
+</header>
+      <div class="header-actions" style="position:relative;right:12px;top:6px;">
+        {% if user %}
+          <span class="user-name">{{ user.name }}</span>
+          <a class="nav-item" href="/logout">Logout</a>
+        {% else %}
+          <a class="nav-item" href="/login">Login</a>
+        {% endif %}
+      </div>
+  <main>
+    <h1>Manage Trackers</h1>
+
+    <div id="manage-help" class="subpanel" style="margin-bottom:12px;">
+      <div class="subpanel-body">Add tracker names here to make them available when adding trackers during games. Use clear short names (e.g. "winner", "sol ring").</div>
+    </div>
+
+    <section id="manage-form" aria-label="Add managed tracker" class="subpanel">
+      <div class="subpanel-body row">
+        <label class="field-label" for="mt-name">Name</label>
+        <input id="mt-name" placeholder="Tracker name" class="input" aria-label="Tracker name">
+        <label class="field-label" for="mt-type">Type</label>
+        <select id="mt-type" class="select" aria-label="Tracker type">
+          <option value="player">Player</option>
+          <option value="yesno">Yes/No</option>
+          <option value="number">Number</option>
+        </select>
+        <button id="mt-add" class="btn primary">Add</button>
+      </div>
+    </section>
+
+    <section id="managed-list-wrap" aria-label="Managed trackers list" class="subpanel">
+      <div class="subpanel-body">
+        <ul id="managed-list" aria-live="polite"></ul>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/manage_trackers.js"></script>
+</body>
+</html>

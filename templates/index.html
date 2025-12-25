@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MTG Commander Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header" role="banner">
+      <div class="logo" aria-hidden="true">MTG Tracker</div>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <button class="nav-item active" data-tab="table" onclick="switchTab('table')" aria-pressed="true">Table</button>
+  <a class="nav-item" href="/stats">Stats</a>
+  <a class="nav-item" href="/manage-trackers">Manage Trackers</a>
+</nav>
+
+    </header>
+      <div class="header-actions">
+        {% if user %}
+          <span class="user-name">{{ user.name }}</span>
+          <a class="nav-item" href="/logout">Logout</a>
+        {% else %}
+          <a class="nav-item" href="/login">Login</a>
+        {% endif %}
+      </div>
+    <!-- Mobile tab bar: shown only on small screens, placed below header -->
+    <div class="mobile-tabs" role="tablist" aria-label="Main mobile tabs">
+      <button class="mobile-tab-btn active" data-tab="setup" aria-pressed="true">Setup</button>
+      <button class="mobile-tab-btn" data-tab="table" aria-pressed="false">Table</button>
+      <button class="mobile-tab-btn" data-tab="recent" aria-pressed="false">Recent</button>
+    </div>
+
+    <main class="app-main">
+      <!-- Left column: setup -->
+      <section class="panel panel-left">
+        <i style="padding-bottom: 5%;">Type the name of the player and click Add, and then type the deck name of that player and click add. Once you have the opponents and decks set up, select the number of players, click Set, assign the Seats and click "Start game".</i>
+        <div class="subpanel">
+          <div class="subpanel-header">
+            <span>Opponents</span>
+          </div>
+          <div class="subpanel-body">
+            <div class="field-row">
+              <label class="field-label" for="opponent-name">New opponent</label>
+              <input id="opponent-name" class="input" placeholder="New opponent name" aria-label="New opponent name">
+              <button class="btn primary" onclick="addOpponent()" aria-label="Add opponent">Add</button>
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="opponents-select">Select opponent</label>
+              <select id="opponents-select" class="select" onchange="loadDecksForOpponent()" aria-label="Select opponent"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="subpanel">
+          <div class="subpanel-header">
+            <span>Decks</span>
+          </div>
+          <div class="subpanel-body">
+            <div class="field-row">
+              <label class="field-label" for="deck-name">New deck</label>
+              <input id="deck-name" class="input" placeholder="New deck for selected opponent" aria-label="New deck name">
+              <button class="btn primary" onclick="addDeck()" aria-label="Add deck">Add</button>
+            </div>
+            <div class="field-row">
+              <label class="field-label" for="decks-select">Select deck</label>
+              <select id="decks-select" class="select"></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="subpanel">
+          <div class="subpanel-header">
+            <span>Players</span>
+          </div>
+          <div class="subpanel-body">
+            <div class="field-row">
+              <label class="field-label" for="player-count">Number of players</label>
+              <input id="player-count" type="number" min="2" max="6" value="4" class="input input-small" aria-label="Number of players">
+              <button class="btn" onclick="buildSeats()" aria-label="Set number of players">Set</button>
+            </div>
+            <div id="seats-area"></div>
+          </div>
+        </div>
+
+        <div class="subpanel">
+          <div class="subpanel-body">
+            <button class="btn primary wide" onclick="startGame()">Start game</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Middle column: table + trackers -->
+      <section class="panel panel-center" aria-label="Table and trackers">
+        <h2 class="panel-title">Table</h2>
+        <div id="current-game" class="current-game" aria-live="polite"></div>
+        <div id="trackers-area" aria-label="Trackers area"></div>
+      </section>
+
+      <!-- Right column: recent games -->
+      <section class="panel panel-right" aria-label="Recent games">
+        <h2 class="panel-title">Recent games</h2>
+        <ul id="games-list" class="games-list" aria-label="Recent games list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

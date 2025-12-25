@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overall Stats - MTG Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header" role="banner">
+      <div class="logo" aria-hidden="true">MTG Tracker — Overall Stats</div>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+  <a class="nav-item" href="/">Table</a>
+  <button class="nav-item active" href="/stats">Stats</button>
+  <a class="nav-item" href="/manage-trackers">Manage Trackers </a>
+</nav>
+
+    </header>
+          <div class="header-actions">
+        {% if user %}
+          <span class="user-name">{{ user.name }}</span>
+          <a class="nav-item" href="/logout">Logout</a>
+        {% else %}
+          <a class="nav-item" href="/login">Login</a>
+        {% endif %}
+      </div>
+    <main class="app-main stats-page" role="main" style="padding:20px;">
+      <section class="panel" aria-label="Per tracker breakdowns">
+        <h2 class="panel-title">Per-tracker breakdowns</h2>
+        <div id="trackersBreakdown" class="trackers-breakdown" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='stats.js') }}"></script>
+</body>
+</html>

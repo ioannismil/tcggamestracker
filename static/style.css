@@ -1,0 +1,545 @@
+:root {
+  --bg-color: #050711;
+  --bg-elevated: #0f1224;
+  --bg-elevated-soft: #15172b;
+  --accent: #6f8cff; /* gentle blue */
+  --accent-soft: rgba(111, 140, 255, 0.14);
+  --accent-strong: #8b9bff;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --text-main: #eef2ff;
+  --text-muted: #b6bdd8;
+  --danger: #ff6b7a;
+  --success: #1fcc8f;
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+  --focus-ring: 3px;
+}
+
+body {
+  margin: 1%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background: radial-gradient(circle at top, #141427 0, var(--bg-color) 60%);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+/* App shell */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: linear-gradient(90deg, #050816 0, #090b1a 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+/* center header nav while keeping logo and header-actions at sides */
+.app-header { position: relative; }
+/* Center header nav only on wider screens; on small screens keep normal flow to avoid overlap */
+.app-header .nav { position: static; transform: none; }
+@media (min-width: 960px) {
+  .app-header .nav { position: absolute; left: 50%; transform: translateX(-50%); }
+}
+
+.logo {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.nav {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.nav-item {
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+/* Main grid */
+
+.app-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) minmax(360px, 1fr) minmax(240px, 300px);
+  gap: 16px;
+  padding: 16px 24px 24px;
+  box-sizing: border-box;
+}
+
+.panel {
+  background: linear-gradient(145deg, rgba(15, 18, 42, 0.92), rgba(5, 7, 20, 0.98));
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px 14px;
+  box-sizing: border-box;
+}
+
+.panel-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+}
+
+/* Subpanels (cards inside panels) */
+
+.subpanel {
+  background: linear-gradient(135deg, #14172f, #101226);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.subpanel-header {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subpanel-body {
+  padding: 10px;
+}
+
+/* Form controls */
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.field-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 90px;
+}
+
+.input,
+.select {
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(9, 10, 26, 0.95);
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+  min-width: 0;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: rgba(164, 167, 194, 0.7);
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 var(--focus-ring) rgba(111, 140, 255, 0.14);
+  background: #0b0d1a;
+}
+
+/* Accessible focus for keyboard users */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 var(--focus-ring) rgba(111,140,255,0.2);
+}
+
+.input-small {
+  max-width: 70px;
+}
+
+/* Buttons */
+
+.btn {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(17, 20, 52, 0.9);
+  color: var(--text-main);
+  font-size: 12px;
+  padding: 6px 12px;
+  cursor: pointer;
+  min-height: 40px;
+  min-width: 44px;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, var(--accent), #4f6fff);
+  border-color: rgba(143, 167, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(111, 140, 255, 0.45);
+}
+
+.btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(111, 140, 255, 0.6);
+}
+
+.btn:hover {
+  background: rgba(29, 35, 82, 0.95);
+}
+
+.btn.wide {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Current game + trackers */
+
+.current-game {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: radial-gradient(circle at left, rgba(111, 140, 255, 0.2), transparent 60%);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+#trackers-area .row {
+  margin-top: 6px;
+}
+
+/* Trackers list */
+
+#trackers-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tracker-pill {
+  background: rgba(19, 25, 64, 0.96);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.tracker-pill .tracker-label {
+  color: var(--text-main);
+}
+
+.tracker-pill .tracker-type-yn {
+  color: var(--accent-strong);
+}
+
+.tracker-pill .tracker-type-player {
+  color: var(--success);
+}
+
+.tracker-pill button {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 0 4px;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tracker-pill button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tracker-pill button:last-child:hover {
+  color: var(--danger);
+}
+
+/* Games list */
+
+.games-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+.games-list li {
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.games-list li:hover {
+  background: rgba(28, 34, 86, 0.9);
+  border-color: rgba(111, 140, 255, 0.4);
+  color: var(--text-main);
+}
+
+/* Seats area */
+
+#seats-area .row {
+  margin-bottom: 6px;
+}
+
+/* Responsive */
+
+@media (max-width: 960px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  .panel {
+    max-height: none;
+  }
+}
+
+/* Hide theme toggle to enforce dark-only UI */
+#theme-toggle { display: none !important; }
+
+/* Slightly larger touch targets on small screens */
+@media (max-width: 520px) {
+  .btn { padding: 12px 14px; font-size: 16px; min-height:48px; }
+  .input, .select { padding: 12px 14px; font-size: 16px; }
+  .logo { font-size: 18px; }
+  .nav { gap: 10px; }
+  /* Make nav items bigger and easier to tap */
+  .nav-item { padding: 10px 12px; font-size: 15px; border-radius: 10px; }
+
+  /* Stack form rows vertically for narrow screens */
+  .field-row { flex-direction: column; align-items: stretch; }
+  .field-label { min-width: auto; width: 100%; }
+  .field-row .input, .field-row .select, .field-row .btn { width: 100%; }
+
+  /* Increase games list touch targets and spacing */
+  .games-list li { font-size: 15px; padding: 10px 12px; border-radius: 8px; }
+
+  /* Slightly larger tracker pills for touch */
+  .tracker-pill { padding: 8px 10px; font-size: 14px; }
+}
+
+/* Mobile tabs: hidden by default, visible on small screens */
+.mobile-tabs { display: none; }
+@media (max-width: 960px) {
+  body{
+    margin: 5%;
+  }
+  .mobile-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: linear-gradient(90deg, rgba(10,12,24,0.95), rgba(15,18,36,0.95));
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .mobile-tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .mobile-tab-btn.active,
+  .mobile-tab-btn:active {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border-color: rgba(143,167,255,0.12);
+  }
+
+  /* When switching on mobile, hide other panels using helper class */
+  .panel.mobile-hidden { display: none !important; }
+}
+
+
+body.light-theme {
+  --bg-color: #f4f5fb;
+  --bg-elevated: #ffffff;
+  --bg-elevated-soft: #f5f6fc;
+  --accent: #5364ff;
+  --accent-soft: rgba(83, 100, 255, 0.15);
+  --accent-strong: #3139c9;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --text-main: #111220;
+  --text-muted: #5b5f7c;
+  --shadow-soft: 0 18px 35px rgba(0, 0, 0, 0.16);
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: grid;
+}
+
+/* Table tab uses the main 3‑column grid */
+#tab-table {
+  grid-template-columns: inherit;
+  gap: inherit;
+}
+
+/* Stats tab is a single column in the same main area */
+#tab-stats {
+  grid-template-columns: 1fr;
+}
+
+.stats-placeholder {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.stats-section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 10px 0 4px;
+}
+
+.stats-row {
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.stats-row:last-child {
+  border-bottom: none;
+}
+
+.stats-highlight {
+  color: var(--accent-strong);
+}
+
+/* Chart containers: give canvases a fixed max height to prevent infinite growth */
+.chart-container {
+  width: 100%;
+  height: 240px;
+  max-height: 420px;
+  margin: 8px 0 4px;
+}
+.chart-container.chart-small {
+  height: 140px;
+  max-height: 200px;
+}
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.trackers-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.tracker-card {
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(20,22,44,0.9), rgba(10,12,24,0.95));
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.stats-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+.stats-chart-block {
+  margin-top: 12px;
+}
+
+.stats-chart-block canvas {
+  width: 100%;
+  max-height: 260px;
+}
+
+/* Mobile: force stacked single-column layout for tracker charts */
+@media (max-width: 520px) {
+  .trackers-breakdown {
+    grid-template-columns: 1fr; /* single column stacked */
+    gap: 10px;
+  }
+  .chart-container,
+  .chart-container.chart-small {
+    height: 200px;
+    max-height: 260px;
+  }
+  .tracker-card {
+    padding: 12px;
+  }
+}
+
+/* Stats page uses a single-column app-main so panels fill full width */
+.app-main.stats-page {
+  grid-template-columns: 1fr;
+}
