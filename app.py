@@ -16,6 +16,7 @@ except Exception:
     OAuth = None
 
 app = Flask(__name__)
+
 app.secret_key = os.environ.get('FLASK_SECRET', 'dev-secret-change-me')
 
 # configure OAuth if available
@@ -686,7 +687,7 @@ def game_stats(game_id):
         "top_trackers": [dict(r) for r in top_trackers],
     })
 
-
+init_db()
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0",debug=True,port=7000)
