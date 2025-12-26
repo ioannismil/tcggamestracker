@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About TCG Tracker | Track Your Trading Card Game Stats</title>
+  <meta name="description" content="Learn more about TCG Tracker — a web app that helps TCG players log matches, build game history, analyze performance, and use custom life trackers with real-time stats.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0f1720; color:#e6eef8; margin:0; line-height:1.6; }
+    .about-container { max-width:900px; margin:0 auto; padding:56px 24px; }
+    h1, h2 { color:#dff1ff; }
+    a { color:#7dd3fc; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .section { margin-bottom:48px; }
+    .highlight { color:#93c5fd; }
+    nav { text-align:right; padding:20px 24px; background:#0a1018; border-bottom:1px solid rgba(255,255,255,0.05); }
+    nav a { margin-left:16px; color:#a5b4fc; }
+    nav a:hover { color:#c7d2fe; }
+  </style>
+</head>
+<body>
+  <nav style="position:fixed; top:0; left:0; right:0; padding:16px 24px; background:rgba(15,23,32,0.95); backdrop-filter:blur(10px); z-index:100; display:flex; justify-content:flex-start; gap:24px;">
+    <a href="/" style="color:#a5b4fc; font-weight:500; text-decoration:none; font-size:14px;">Home</a>
+    <a href="/about" style="color:#7dd3fc; font-weight:600; text-decoration:none; font-size:14px;">About</a>
+  </nav>
+  <div class="about-container">
+    <h1>About <span class="highlight">TCG Tracker</span></h1>
+    <p>
+      <strong>TCG Tracker</strong> is a platform designed for all trading card game (TCG) players who want to keep a detailed record of their play sessions. 
+      Whether you're a dedicated <em>Magic: The Gathering</em> player, a <em>Pokémon</em> battler, or a <em>Yu‑Gi‑Oh!</em> duelist, <em>One Piece</em> and many more, tracking your games shouldn’t be guesswork.
+      This app lets you visualize your progress with clear stats, graphs, and custom trackers made precisely for your format.
+    </p>
+
+    <div class="section">
+      <h2>What You Can Do</h2>
+      <ul>
+        <li>Record every game result, deck, and opponent with one click.</li>
+        <li>Use custom-made <strong>trackers</strong> to log life points, energy, poison counters, and more.</li>
+        <li>Analyze your performance with <strong>interactive graphs</strong> and running win‑rates.</li>
+        <li>Keep a complete <strong>match history</strong> accessible on any device.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Why Sign In?</h2>
+      <p>
+        TCG Tracker uses <strong>secure Google authentication</strong>. Your data is linked only to your account no passwords stored, no unwanted sharing. 
+        Once you log in, your entire game history stays synced across devices automatically.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Our Mission</h2>
+      <p>
+        Our goal is to bring powerful yet simple stat tracking to the global TCG community. 
+        Whether you attend local tournaments or casual kitchen‑table sessions, we want every duel, match, and playtest to count.
+      </p>
+      <p>
+        We believe in helping players <strong>track, grow, and celebrate</strong> their improvement one match at a time.
+      </p>
+    </div>
+
+    <div class="section" style="text-align:center;">
+      <p>Ready to start tracking your progress?</p>
+      <br>
+      <a href="/login/google" style="background:#7dd3fc; color:#111827; font-weight:600; padding:10px 18px; border-radius:6px;">Login with Google</a>
+    </div>
+  </div>
+</body>
+</html>

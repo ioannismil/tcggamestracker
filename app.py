@@ -43,7 +43,7 @@ def require_login():
     if path.startswith('/static/') or path.startswith('/api/'):
         return
     # allow auth and login routes
-    if path.startswith('/login') or path.startswith('/auth') or path.startswith('/logout'):
+    if path.startswith('/login') or path.startswith('/auth') or path.startswith('/logout') or path == '/about':
         return
     # if no user in session, redirect to login
     if not session.get('user'):
@@ -158,6 +158,9 @@ def stats_page():
 def manage_trackers_page():
     return render_template("manage_trackers.html", user=session.get('user'))
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 # ---- Authentication routes (Google OAuth) ----
 @app.route('/login')
