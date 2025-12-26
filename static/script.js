@@ -256,7 +256,7 @@ async function selectGame(gameId, opponentName, deckName) {
   await loadTrackers();
 await updateStats();        // if you still use per-game stats somewhere
 await updateOverallStats(); // new global stats
-switchMobileTab('recent')
+switchMobileTab('table')
 }
 
 
