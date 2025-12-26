@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MTG Commander Tracker</title>
+  <title>TCG Tracker</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="app">
     <header class="app-header" role="banner">
-      <div class="logo" aria-hidden="true">MTG Tracker</div>
+      <div class="logo" aria-hidden="true">TCG Tracker</div>
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <button class="nav-item active" data-tab="table" onclick="switchTab('table')" aria-pressed="true">Table</button>
   <a class="nav-item" href="/stats">Stats</a>
@@ -42,13 +42,13 @@
           </div>
           <div class="subpanel-body">
             <div class="field-row">
-              <label class="field-label" for="opponent-name">New opponent</label>
-              <input id="opponent-name" class="input" placeholder="New opponent name" aria-label="New opponent name">
-              <button class="btn primary" onclick="addOpponent()" aria-label="Add opponent">Add</button>
+              <label class="field-label" for="opponent-name">New player</label>
+              <input id="opponent-name" class="input" placeholder="New player name" aria-label="New player name">
+              <button class="btn primary" onclick="addOpponent()" aria-label="Add player">Add</button>
             </div>
             <div class="field-row">
-              <label class="field-label" for="opponents-select">Select opponent</label>
-              <select id="opponents-select" class="select" onchange="loadDecksForOpponent()" aria-label="Select opponent"></select>
+              <label class="field-label" for="opponents-select">Select player</label>
+              <select id="opponents-select" class="select" onchange="loadDecksForOpponent()" aria-label="Select player"></select>
             </div>
           </div>
         </div>
